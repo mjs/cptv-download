@@ -14,7 +14,7 @@ class CPTVUploader:
 
     def process(self):
         print('Uploading to  ', self.url)
-        api = DeviceAPI(self.url, devicename = self.device_name, password = self.device_password)
+        api = DeviceAPI(self.url, self.device_name, self.device_password).login()
 
         files = self._find_files_to_upload()
         for file in files:

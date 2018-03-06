@@ -5,10 +5,10 @@ import requests
 from urllib.parse import urljoin
 
 
-class API(APIBase):
+class UserAPI(APIBase):
 
-    def __init__(self, baseurl, username, password):
-        super().__init__(baseurl, username, password, 'user')
+    def __init__(self, baseurl, username, password = 'password'):
+        super().__init__('user', baseurl, username, password)
 
     def query(self, startDate=None, endDate=None, min_secs=5, limit=100, offset=0, tagmode=None, tags=None):
         url = urljoin(self._baseurl, '/api/v1/recordings')
@@ -57,3 +57,28 @@ class API(APIBase):
             stream=True)
         r.raise_for_status()
         yield from r.iter_content(chunk_size=4096)
+
+    def _get_all(self, url): 
+        r = requests.get(
+                urljoin(self._baseurl, url),
+                params={'where':'{}'},
+                headers=self._auth_header,
+            )
+        r.raise_for_status()
+        return r.text
+
+    def get_devices_as_string(self): 
+        return self._get_all('/api/v1/devices')
+
+    def get_groups_as_string(self): 
+        return self._get_all('/api/v1/groups')
+
+    def create_group(self, groupname):
+        url = urljoin(self._baseurl, "/api/v1/groups")
+        response = requests.post(url, data={'groupname': groupname}, headers=self._auth_header)
+        response.raise_for_status()
+
+    # def add_user_to_group(self, username, groupname) 
+    #     url = urljoin(self._baseurl, "/api/v1/groups")
+    #     response = requests.post(url, data={'groupname': groupname}, headers=self._auth_header)
+    #     response.raise_for_status()

@@ -8,7 +8,7 @@ import os
 
 from dateutil.parser import parse as parsedate
 
-from api import API
+from userapi import UserAPI
 from pool import Pool
 
 SPECIAL_DIRS = ['test', 'hard']
@@ -49,7 +49,7 @@ class CPTVDownloader:
     def process(self, url):
         """ Downloads all requested files from specified server """
 
-        api = API(url, self.user, self.password)
+        api = UserAPI(url, self.user, self.password).login()
 
         print("Querying server {0}".format(url))
         print("Limit is {0}".format(self.limit))

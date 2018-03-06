@@ -8,7 +8,7 @@ from requests_toolbelt.multipart.encoder import MultipartEncoder
 class DeviceAPI(APIBase):
 
     def __init__(self, baseurl, devicename, password='password'):
-        super().__init__(baseurl, devicename, password, 'device');
+        super().__init__('device', baseurl, devicename, password)
 
     def upload_recording(self, filename, jsonProps = None): 
         url = urljoin(self._baseurl, '/api/v1/recordings')
