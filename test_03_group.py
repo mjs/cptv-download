@@ -7,7 +7,7 @@ class TestGroup:
     def test_group_can_be_created_and_users_added_to_it(self):
         testapi = FixtureTestAPI()
 
-        print("If a new user 'clare' signs up", end='')
+        print("If a new user Clare", end='')
         clare = testapi.given_new_user(self, 'clare')
 
         print("   has a new group called 'clares group'", end='')
@@ -15,7 +15,7 @@ class TestGroup:
         clare.create_group(claresGroup)
         print("({})".format(claresGroup))
 
-        print("  and given there is a new device called 'Terminator' in this group", end='')
+        print("  and there is a new device called 'Terminator' in this group", end='')
         terminator = testapi.given_new_device(self, 'Terminator', claresGroup)
 
         print("  which has uploaded a recording")
@@ -24,7 +24,6 @@ class TestGroup:
         print("  then Clare should see the recording")
         clare.can_see_recording_from(terminator)
 
-        print("")
         print("Given a Daniel is a new user", end='')
         daniel = testapi.given_new_user(self, 'daniel')
 

@@ -24,4 +24,7 @@ class TestUser:
 
     def create_group(self, groupname):
         self._userapi.create_group(groupname)
+
+    def get_user_details(self, user):
+        self._userapi.get_user_details(user.username)
         

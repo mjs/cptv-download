@@ -78,7 +78,14 @@ class UserAPI(APIBase):
         response = requests.post(url, data={'groupname': groupname}, headers=self._auth_header)
         response.raise_for_status()
 
-    # def add_user_to_group(self, username, groupname) 
+    def get_user_details(self, username):
+        url = urljoin(self._baseurl, "/api/v1/users/{}".format(username))
+        response = requests.get(url, headers=self._auth_header)
+        response.raise_for_status()
+        # print(response.json())
+        
+
+# def add_user_to_group(self, username, groupname) 
     #     url = urljoin(self._baseurl, "/api/v1/groups")
     #     response = requests.post(url, data={'groupname': groupname}, headers=self._auth_header)
     #     response.raise_for_status()
